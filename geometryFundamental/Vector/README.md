@@ -17,7 +17,7 @@
 > 
 > ___⬜ Image Annotation ▽___
 > - _Top Left : `p1, p2, p3 = rs.PointCoordinates(rs.AddPoint(0,0,0)), (2,4,0), (5,2,0)`_ 
-> - _Top Right : `v3 = p1 - p3`_ 
+> - _Top Right : `v1 = p2 - p1`_ 
 > - _Bottom Left : `v2 = p3 - p2`_ 
 > - _Bottom Right : `v3 = p1 - p3`_ 
 > 　
