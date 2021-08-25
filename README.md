@@ -13,7 +13,7 @@
 > 
 >  ___💡 Polygon & Not Polygon ▽___
 > 
-> <p align="center"><img src="https://user-images.githubusercontent.com/83874157/129742828-076e8757-4100-4afc-895b-f987c13c53b0.png" width="897px"></p>
+> <p align="center"><img src="https://user-images.githubusercontent.com/83874157/129742828-076e8757-4100-4afc-895b-f987c13c53b0.png" width="750px"></p>
 > 　<br>
 > 
 > ___✔️ Polygon Annotation ▽___
@@ -45,7 +45,7 @@
 > 　<br><br>
 > 
 >  ___💡 View Geometry ▽___
-> <p align="center"><img src="https://user-images.githubusercontent.com/83874157/129746993-5c7ff2a4-162c-4089-9b9a-04598d45518b.png" width="452px"> <img src="https://user-images.githubusercontent.com/83874157/129747121-f545c560-a1d9-449d-80b5-ec66685d6253.png" width="445px"></p>
+> <p align="center"><img src="https://user-images.githubusercontent.com/83874157/129746993-5c7ff2a4-162c-4089-9b9a-04598d45518b.png" width="377px"> <img src="https://user-images.githubusercontent.com/83874157/129747121-f545c560-a1d9-449d-80b5-ec66685d6253.png" width="370px"></p>
 
 
 <br><br><br>
@@ -54,7 +54,7 @@
 
 
 >  ___💡 View Geometry ▽___
-> <p align="center"><img src="https://user-images.githubusercontent.com/83874157/129749379-61a10c7e-c0e6-4a72-b2d4-32c21a7e68ec.png" width="897px"></p>
+> <p align="center"><img src="https://user-images.githubusercontent.com/83874157/129749379-61a10c7e-c0e6-4a72-b2d4-32c21a7e68ec.png" width="750px"></p>
 > 　<br>
 > 
 > ___🔺 Triangulation Annotation ▽___
