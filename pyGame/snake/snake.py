@@ -4,7 +4,6 @@ import random
 
 pygame.init()
 
-# screen
 
 # object
 RED = (255, 0, 0)
@@ -13,8 +12,9 @@ BLOCK_SIZE = 20
 MOVE_SPEED = 1
 STARTING_POINT = [(20,15), (19,15), (18,15)]
 
-move_direction = ''
 
+# screen
+FPS = 20
 SCREEN_COLOR = (0, 0, 0)
 SCREEN_SIZE = (800, 600)
 X_LIMIT_MAX = SCREEN_SIZE[0]/BLOCK_SIZE
@@ -22,9 +22,7 @@ X_LIMIT_MIN = SCREEN_SIZE[0]-SCREEN_SIZE[0]-1
 Y_LIMIT_MAX = SCREEN_SIZE[1]/BLOCK_SIZE
 Y_LIMIT_MIN = SCREEN_SIZE[1]-SCREEN_SIZE[1]-1
 
-
-FPS = 20
-
+move_direction = ''
 screen = pygame.display.set_mode(SCREEN_SIZE)
 clock = pygame.time.Clock()
 
@@ -82,12 +80,11 @@ class Apple:
 
 def run_game():
     
-    snake = Snake()
-    
+    snake = Snake()    
     random_start_apple = (random.randint(0, X_LIMIT_MAX),random.randint(0, Y_LIMIT_MAX))
     apple = Apple(position=random_start_apple)
-
     start = False
+
     while True:
         
         clock.tick(FPS)
@@ -109,13 +106,10 @@ def run_game():
         # GAME-OVER Condition        
         if snake.positions[0] in snake.positions[1:] and start == True:
             run_game()
-
         elif snake.positions[0][0] >= X_LIMIT_MAX or snake.positions[0][0] <= X_LIMIT_MIN:
             run_game()
-
         elif snake.positions[0][1] >= Y_LIMIT_MAX or snake.positions[0][1] <= Y_LIMIT_MIN:
             run_game()
-        
         elif snake.positions[0] != STARTING_POINT[0]:
             start = True
 
