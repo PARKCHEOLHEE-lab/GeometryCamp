@@ -17,12 +17,12 @@ STARTING_POINT = [(20,15), (19,15), (18,15)]
 FPS = 20
 SCREEN_COLOR = (0, 0, 0)
 SCREEN_SIZE = (800, 600)
-X_LIMIT_MAX = SCREEN_SIZE[0]/BLOCK_SIZE
-X_LIMIT_MIN = SCREEN_SIZE[0]-SCREEN_SIZE[0]-1
-Y_LIMIT_MAX = SCREEN_SIZE[1]/BLOCK_SIZE
-Y_LIMIT_MIN = SCREEN_SIZE[1]-SCREEN_SIZE[1]-1
+GRID_COLOR = (1, 1, 1)
+X_LIMIT_MAX = SCREEN_SIZE[0] / BLOCK_SIZE
+X_LIMIT_MIN = SCREEN_SIZE[0] - SCREEN_SIZE[0] - 1
+Y_LIMIT_MAX = SCREEN_SIZE[1] / BLOCK_SIZE
+Y_LIMIT_MIN = SCREEN_SIZE[1] - SCREEN_SIZE[1] - 1
 
-move_direction = ''
 screen = pygame.display.set_mode(SCREEN_SIZE)
 clock = pygame.time.Clock()
 
@@ -33,14 +33,28 @@ KEY_DIRECTION = {
                  pygame.K_RIGHT: 'E'
                 }
 
+KEY_DIRECTION_REV = {
+                     pygame.K_UP:    'S',
+                     pygame.K_DOWN:  'N',
+                     pygame.K_LEFT:  'E',
+                     pygame.K_RIGHT: 'W'
+                    }
+
 def draw_block(screen, color, position):
     block = pygame.Rect((position[0]*BLOCK_SIZE, position[1]*BLOCK_SIZE), (BLOCK_SIZE, BLOCK_SIZE))
     pygame.draw.rect(screen, color, block)
+
+def draw_grid():
+    for x in range(1, int(SCREEN_SIZE[0]/BLOCK_SIZE)):
+        pygame.draw.line(screen, GRID_COLOR, (BLOCK_SIZE*x,0), (BLOCK_SIZE*x,SCREEN_SIZE[1]), 1)
+    for y in range(1, int(SCREEN_SIZE[0]/BLOCK_SIZE)):
+        pygame.draw.line(screen, GRID_COLOR, (0, BLOCK_SIZE*y), (SCREEN_SIZE[0], BLOCK_SIZE*y), 1)
 
 class Snake:
     def __init__(self):
         self.positions = STARTING_POINT
         self.direction = ''
+        self.rev_direction = ''
 
     def draw(self):
         for position in self.positions:
@@ -81,7 +95,7 @@ class Apple:
 def run_game():
     
     snake = Snake()    
-    random_start_apple = (random.randint(0, X_LIMIT_MAX),random.randint(0, Y_LIMIT_MAX))
+    random_start_apple = random.randint(1, X_LIMIT_MAX-2), random.randint(1, Y_LIMIT_MAX-2)
     apple = Apple(position=random_start_apple)
     start = False
 
@@ -89,7 +103,7 @@ def run_game():
         
         clock.tick(FPS)
         screen.fill(SCREEN_COLOR)
-        random_grow_apple = random.randint(0, X_LIMIT_MAX), random.randint(0, Y_LIMIT_MAX)
+        random_grow_apple = random.randint(1, X_LIMIT_MAX-2), random.randint(1, Y_LIMIT_MAX-2)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -97,11 +111,17 @@ def run_game():
             
             if event.type == pygame.KEYDOWN:
                 if event.key in KEY_DIRECTION:
-                    snake.direction = KEY_DIRECTION[event.key]
+                    if snake.direction != KEY_DIRECTION_REV[event.key]:
+                        snake.direction = KEY_DIRECTION[event.key]
 
         if snake.positions[0] == apple.position:
             snake.grow()
             apple.position = random_grow_apple
+        elif apple.position in snake.positions[1:]:
+            while True:
+                 apple.position = random_grow_apple
+                 if not apple.position in snake.positions[1:]:
+                     break
 
         # GAME-OVER Condition        
         if snake.positions[0] in snake.positions[1:] and start == True:
@@ -117,9 +137,11 @@ def run_game():
 
         snake.draw()
         apple.draw()
+        draw_grid()
         
         snake.move()
         pygame.display.update()
+
 
 run_game()
 pygame.quit()
