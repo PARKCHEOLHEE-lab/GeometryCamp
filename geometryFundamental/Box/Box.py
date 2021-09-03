@@ -15,7 +15,6 @@ class Box:
         
     def generate(self):
         plane = rg.Plane.WorldXY
-        I = rg.Interval
         box = rg.Box(plane, self.size()[0], self.size()[1], self.size()[2])
         return box
 
