@@ -61,19 +61,22 @@ class Matrix(Point):
                     pt = rs.AddPoint(x,y,0)
                     self._pts.append(pt)
                     
-        if self.points()['p1']['x'] < self.points()['p2']['x']:
-            if self.points()['p1']['y'] < self.points()['p2']['y']:
-                grid_gen(self.points()['p1']['x'], self.points()['p1']['y'])
+        p1_x = self.points()['p1']['x']; p1_y = self.points()['p1']['y']
+        p2_x = self.points()['p2']['x']; p2_y = self.points()['p2']['y']
+        
+        if p1_x < p2_x:
+            if p1_y < p2_y:
+                grid_gen(p1_x, p1_y)
                 
-            elif self.points()['p1']['y'] > self.points()['p2']['y']:
-                grid_gen(self.points()['p1']['x'], self.points()['p2']['y'])
+            elif p1_y > p2_y:
+                grid_gen(p1_x, p2_y)
                     
-        if self.points()['p1']['x'] > self.points()['p2']['x']:
-            if self.points()['p1']['y'] > self.points()['p2']['y']:
-                grid_gen(self.points()['p2']['x'], self.points()['p2']['y'])
+        if p1_x > p2_x:
+            if p1_y > p2_y:
+                grid_gen(p2_x, p2_y)
                 
-            elif self.points()['p1']['y'] < self.points()['p2']['y']:
-                grid_gen(self.points()['p2']['x'], self.points()['p1']['y'])
+            elif p1_y < p2_y:
+                grid_gen(p2_x, p1_y)
                 
         return self._pts
 
