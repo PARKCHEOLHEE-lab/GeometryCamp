@@ -39,8 +39,10 @@ class Matrix(Point):
         return points_dict
         
     def distance(self):
-        x_distance = abs(self.points()['p1']['x'] - self.points()['p2']['x'])
-        y_distance = abs(self.points()['p1']['y'] - self.points()['p2']['y'])
+        p1_x = self.points()['p1']['x']; p1_y = self.points()['p1']['y']
+        p2_x = self.points()['p2']['x']; p2_y = self.points()['p2']['y']
+        x_distance = abs(p1_x - p2_x)
+        y_distance = abs(p1_y - p2_y)
         distance_dict = {'x':x_distance, 'y':y_distance}
         
         return distance_dict
