@@ -1,6 +1,4 @@
-﻿import Rhino.Geometry as rg
 import rhinoscriptsyntax as rs
-import ghpythonlib.components as gh
 
 # 선분1 ; (x11,y11) to (x12, y12)
 # 선분2 ; (x21,y21) to (x22, y22)
@@ -22,5 +20,3 @@ f2 = y22 - (m1*x22 - m1*x11 + y11 )
 
 if f1*f2 < 0:
     a = rs.AddPoint(cx, cy, 0)
-
-
