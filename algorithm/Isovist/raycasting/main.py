@@ -1,6 +1,7 @@
 from typing import List, Tuple
 import pygame
-from window import SCREEN_W, SCREEN_H, WHITE, BLACK, DARK, GREY, TITLE
+from pygame.constants import MOUSEBUTTONDOWN
+from window import SCREEN_W, SCREEN_H, WHITE, BLACK, DARK, RED, TITLE
 
 
 draw = pygame.draw
@@ -16,12 +17,13 @@ class Application:
 
     def main_loop(self):
         while True:
+            self.draw_cursor()
             self.draw_obstacles(self.obstacles_interval)
             self.draw_screen(DARK)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
-                # if event.type == pygame.MOUSEBUTTONDOWN                
+            
 
 
     def new_obstacles(self, origin: List, size: int) -> List:
@@ -40,8 +42,8 @@ class Application:
         pygame.display.update()
 
     def draw_cursor(self):
-        pass
-        
+        mouse_x, mouse_y = pygame.mouse.get_pos()
+        draw.circle(window, RED, [mouse_x,mouse_y], 5)
 
     def draw_screen(self, color: Tuple):
         window.fill(color)
