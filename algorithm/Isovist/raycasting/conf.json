@@ -1,0 +1,29 @@
+{
+    "general": {
+      "title": "Raycasting Algorithm Demo",
+      "color": [32, 32, 32],
+      "width": 600,
+      "height": 600 
+    },
+    "player": {
+      "radius": 20,
+      "color": [235, 235, 235],
+      "x position": 284,
+      "y position": 284
+    },
+    "ray": {
+      "width": 2,
+      "color": [235, 235, 235]
+    },
+    "walls": {
+      "width": 2,
+      "color": [255, 255, 255],
+      "walls": [
+        [[50, 50], [200, 50]],
+        [[200, 50], [200, 200]],
+        [[200, 200], [50, 200]],
+        [[50, 200], [50, 50]]
+      ]
+    }
+  }
+  
