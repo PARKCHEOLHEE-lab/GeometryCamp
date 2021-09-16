@@ -9,6 +9,7 @@ class Application:
         with open(file_path, 'r') as c:
             return json.load(c)
 
+
     def __init__(self):
         pygame.init()
 
@@ -27,17 +28,16 @@ class Application:
         self.wall_color = self.conf['walls']['color']
         self.wall_width = self.conf['walls']['width']
         self.wall_coord = self.conf['walls']['walls']
-        self.walls = []
 
-        for i in range(len(self.wall_coord)):
-            self.walls.append(self.wall_coord[i][0])
-            self.walls.append(self.wall_coord[i][1])
 
         
     def draw_wall(self):
-        for i in range(1, len(self.walls), 2):
-            wall = Limits(self.wall_color, self.walls[i-1], self.walls[i], self.wall_width)
-            # print(wall.color, wall.start, wall.end)
+        walls = []
+        for i in range(len(self.wall_coord)):
+            walls.extend([self.wall_coord[i][0], self.wall_coord[i][1]])
+
+        for i in range(1, len(walls), 2):
+            wall = Limits(self.wall_color, walls[i-1], walls[i], self.wall_width)
             wall.display(self.screen)
 
 
