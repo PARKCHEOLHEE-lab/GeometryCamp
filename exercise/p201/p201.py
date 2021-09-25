@@ -11,14 +11,6 @@ class Triangrid:
         self.y_count = y_count
         self.curves = self.grid_gen()
 
-    def surface_reparam(self):
-        base_srf = self.surface_gen(self.grid_merge())
-        base_srf = rs.coercesurface(base_srf)
-        domain = rg.Interval(0.00, 1.00)
-        base_srf.SetDomain(0, domain)
-        base_srf.SetDomain(1, domain)
-        return base_srf
-
     def grid_gen(self):
         grid = gh.Triangular(self.plane, self.size, self.x_count, self.y_count)[0]
         return grid
@@ -30,10 +22,18 @@ class Triangrid:
     def grid_centroid(self, curve):
         centroid = rs.CurveAreaCentroid(curve)
         return centroid
-
+    
     def surface_gen(self, curve):
         surface = gh.BoundarySurfaces(curve)
         return surface
+
+    def surface_reparam(self):
+        base_srf = self.surface_gen(self.grid_merge())
+        base_srf = rs.coercesurface(base_srf)
+        domain = rg.Interval(0.00, 1.00)
+        base_srf.SetDomain(0, domain)
+        base_srf.SetDomain(1, domain)
+        return base_srf
 
     def surface_eval(self, u, v):
         point = rs.EvaluateSurface(self.surface_reparam(), u, v)
