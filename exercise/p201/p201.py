@@ -67,11 +67,14 @@ class Triangrid:
     def surface_centroid(self, surface):
         centroid = rs.SurfaceAreaCentroid(surface)[0]
         return centroid
+        
+    def surface_rotate(self, surface, origin, angle, axis):
+        return rs.RotateObject(surface,  origin, angle, axis)
 
 if __name__ == '__main__':
     SCALE = 0.0001
     PLANE = rg.Plane.WorldXY
-    TARGET_VALUE = 70
+#    TARGET_VALUE = 70
     triangles = Triangrid(PLANE, 3, 13, 8)
     datumn_point = triangles.surface_eval(slider[0], slider[1])
     
@@ -89,17 +92,20 @@ if __name__ == '__main__':
         for i in range(len(scaled_line_list)):
             segmented = triangles.grid_segment(triangle_line_list[i], scaled_line_list[i])[0]
             segmented_centroid = triangles.surface_centroid(segmented)
-            distance = rs.Distance(rs.MoveObject(datumn_point, [0,0,0]), segmented_centroid)
+            distance = rs.Distance(triangles.get_guid(datumn_point), segmented_centroid)
             
             grid_segmented.append(segmented)
             distance_list.append(distance)
             
     source = rg.Interval(min(distance_list), max(distance_list))
-    target = rg.Interval(TARGET_VALUE, 0)
+    target = rg.Interval(angle_max, angle_min)
     angle_list = gh.RemapNumbers(distance_list, source, target)[0]
     
-    test = grid_segmented[5]
-    sample_seg = triangles.grid_deconstruct(rs.coercebrep(test))
-    sample_axs = triangles.get_axis(sample_seg[3])
-    sample_mid = triangles.get_midpoint(triangles.get_guid(sample_seg[3]))
-    a = rs.RotateObject(test, sample_mid, angle_list[1], sample_axs)
+    for i, temp_segmented in enumerate(grid_segmented):
+        temp_cvrt = rs.coercebrep(temp_segmented)
+        temp_line = triangles.grid_deconstruct(temp_cvrt)[3]
+        temp_axis = triangles.get_axis(temp_line)
+        temp_guid = triangles.get_guid(temp_line)
+        temp_midp = triangles.get_midpoint(temp_guid)
+        
+        triangles.surface_rotate(temp_segmented, temp_midp, angle_list[i], temp_axis)
