@@ -26,6 +26,14 @@ class Box:
         
     def box_union(self, boxes):
         return gh.SolidUnion(boxes)
+        
+    def box_centroid(self, box):
+        centroid = gh.Volume(box)[1]
+        return centroid
+        
+    def box_frame(self, box):
+        frame = gh.BrepWireframe(box, -1)
+        return frame
 
 
 class Sphere:
@@ -47,3 +55,11 @@ if __name__ == "__main__":
     SEED = 35
     sphere_base = gh.PopulateGeometry(boxes_union, COUNT, SEED)
     sphere = Sphere(RAD).sphere_gen(sphere_base)
+    chunk = gh.SolidDifference(boxes_union, sphere)
+    
+    centroid = box.box_centroid(boxes)
+    bool_list = gh.PointInBrep(chunk, centroid, False)
+    cull_boxes = gh.CullPattern(boxes, bool_list)
+    
+    jungle_gym = box.box_frame(cull_boxes)
+    jungle_gym = gh.Pipe(jungle_gym, 0.7, 2)
